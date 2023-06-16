@@ -26,7 +26,6 @@ public class PlayerManager : MonoBehaviour {
         if (m_playerState == t_newSate) {
             return;
         }
-
         resetAnimatorParameters();
         m_playerState = t_newSate;
         switch (m_playerState) {
@@ -47,10 +46,18 @@ public class PlayerManager : MonoBehaviour {
             case PlayerState.FreeFall:
                 m_animator.SetBool("isFalling", true);
                 break;
+            case PlayerState.Landing:
+                m_animator.SetBool("isLanding", true);
+                print("kandong");
+                break;
             case PlayerState.Dead:
                 m_animator.SetBool("isDying", true);
                 break;
         }
+    }
+
+    public PlayerState getPlayerState() {
+        return m_playerState;
     }
 
     private void resetAnimatorParameters() {
@@ -69,5 +76,6 @@ public enum PlayerState {
     Jump,
     JumpFall,
     FreeFall,
-    Dead
+    Dead,
+    Landing
 }

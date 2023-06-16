@@ -46,14 +46,24 @@ public class PlayerController : MonoBehaviour {
         float movementY = Input.GetAxisRaw("Vertical");
         m_animator.SetFloat("MoveX", movementX);
         m_animator.SetFloat("MoveY", movementY);
-        Vector3 vectorMovement = new Vector3(movementX, 0, movementY).normalized * speed;
-        m_rb.velocity = new Vector3(vectorMovement.x, m_rb.velocity.y, vectorMovement.z);
+        Vector3 inputMovement = new Vector3(movementX, 0, movementY);
+        inputMovement.Normalize();
+        Vector3 worldMovement = transform.TransformDirection(inputMovement);
+        Vector3 velocity = worldMovement * speed;
+        velocity.y = m_rb.velocity.y;
+        m_rb.velocity = velocity;
         if (m_isGrounded) {
-            if (movementX != 0 || movementY != 0) {
-                PlayerManager.instance.changePlayerSate(PlayerState.Running);
+            if (PlayerManager.instance.getPlayerState() == PlayerState.FreeFall ||
+                PlayerManager.instance.getPlayerState() == PlayerState.JumpFall) {
+                PlayerManager.instance.changePlayerSate(PlayerState.Landing);
             }
-            if (vectorMovement == Vector3.zero) {
-                PlayerManager.instance.changePlayerSate(PlayerState.Idle);
+            else {
+                if (movementX != 0 || movementY != 0) {
+                    PlayerManager.instance.changePlayerSate(PlayerState.Running);
+                }
+                else if (inputMovement == Vector3.zero) {
+                    PlayerManager.instance.changePlayerSate(PlayerState.Idle);
+                }
             }
         }
     }
