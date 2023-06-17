@@ -24,12 +24,6 @@ public class GameManager : MonoBehaviour
        
     }
 
-   
-    void Update()
-    {
-        
-    }
-
     public void changeGameState(GameState newGameState) {
         if(m_gameState == newGameState) {
             return;
