@@ -48,7 +48,6 @@ public class PlayerManager : MonoBehaviour {
                 break;
             case PlayerState.Landing:
                 m_animator.SetBool("isLanding", true);
-                print("kandong");
                 break;
             case PlayerState.Dead:
                 m_animator.SetBool("isDying", true);
