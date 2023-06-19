@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
-    
+
     private Animator m_animator;
     private PlayerState m_playerState;
 
@@ -13,11 +13,10 @@ public class PlayerManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-
         instance = this;
     }
 
-    void Start() {
+    private void Start() {
         m_animator = GetComponent<Animator>();
         m_playerState = PlayerState.None;
     }
@@ -39,15 +38,19 @@ public class PlayerManager : MonoBehaviour {
                 break;
             case PlayerState.Jump:
                 m_animator.SetBool("isJumpng", true);
+                m_animator.SetFloat("falling", 1);
                 break;
             case PlayerState.JumpFall:
                 m_animator.SetBool("isFalling", true);
+                m_animator.SetFloat("falling", 0);
                 break;
             case PlayerState.FreeFall:
                 m_animator.SetBool("isFalling", true);
+                m_animator.SetFloat("falling", 0);
                 break;
             case PlayerState.Landing:
                 m_animator.SetBool("isLanding", true);
+                m_animator.SetFloat("falling", -1);
                 break;
             case PlayerState.Dead:
                 m_animator.SetBool("isDying", true);
