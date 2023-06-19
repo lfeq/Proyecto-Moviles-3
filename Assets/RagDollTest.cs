@@ -15,9 +15,8 @@ public class RagDollTest : MonoBehaviour
     }
 
     private void setEnabled(bool isEnabled) {
-        bool isKinematic = !isEnabled;
-        foreach(Rigidbody rigidbody in rigidBodies) { 
-        rigidbody.isKinematic = isKinematic;
+        foreach (Rigidbody rigidbody in rigidBodies) {
+            rigidbody.isKinematic = isEnabled;
         }
         animator.enabled = !isEnabled;
     }

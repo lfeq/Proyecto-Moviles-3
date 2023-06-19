@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 
     private void FixedUpdate() {
         m_isGrounded = Physics.CheckSphere(footPosition.position, footRadius, whatIsGround) &&
-                       m_rb.velocity.y < 0.1f;
+                       m_rb.velocity.y < 1f;
         horizontalMovement();
         verticalMovement();
     }
@@ -72,10 +72,11 @@ public class PlayerController : MonoBehaviour {
         if (m_isGrounded) {
             return;
         }
-        if (m_rb.velocity.y >= 0.1f) {
+        if (m_rb.velocity.y >= 1f) {
             PlayerManager.instance.changePlayerSate(PlayerState.Jump);
         } else if (m_rb.velocity.y < -0.1f) {
-            PlayerManager.instance.changePlayerSate(PlayerState.JumpFall);
+            PlayerManager.instance.changePlayerSate(PlayerState.FreeFall);
+            //m_animator.SetFloat("falling", -1);
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class LevelTwoObstacle : MonoBehaviour {
-    [SerializeField] private float speed = 2.0f;
+    [SerializeField] private float speed = 6.0f;
     [SerializeField] private float angle = 45.0f;
     [SerializeField] private float distance = 2.0f;
     [SerializeField] private GameObject obstaclePos;
@@ -12,8 +12,8 @@ public class LevelTwoObstacle : MonoBehaviour {
 
     void Update() {
         float x = Mathf.Sin(Time.time * speed) * distance;
-        transform.position = new Vector3(x, 2f, 2f);
-        transform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Sin(Time.time * speed) * angle);
+        transform.position = new Vector3(transform.position.x + x, 2f, transform.position.z);
+        //transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Sin(Time.time * speed) * angle);
     }
 
     //public Transform[] path = new Transform[10];
