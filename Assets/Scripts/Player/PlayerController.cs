@@ -5,13 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
     public static PlayerController instance;
-    
+
     [SerializeField] private float speed, jumpForce, footRadius;
     [SerializeField] private Transform footPosition;
     [SerializeField] private LayerMask whatIsGround;
-    
+
     private Rigidbody m_rb;
-    private bool m_isGrounded;
+    private bool m_isGrounded, m_hasTouchedGround = false;
     private Animator m_animator;
 
     private void Awake() {
@@ -56,20 +56,23 @@ public class PlayerController : MonoBehaviour {
             if (PlayerManager.instance.getPlayerState() == PlayerState.FreeFall ||
                 PlayerManager.instance.getPlayerState() == PlayerState.JumpFall) {
                 PlayerManager.instance.changePlayerSate(PlayerState.Landing);
-            }
-            else {
+            } else {
                 if (movementX != 0 || movementY != 0) {
                     PlayerManager.instance.changePlayerSate(PlayerState.Running);
-                }
-                else if (inputMovement == Vector3.zero) {
+                } else if (inputMovement == Vector3.zero) {
                     PlayerManager.instance.changePlayerSate(PlayerState.Idle);
                 }
             }
         }
     }
-    
+
     private void verticalMovement() {
         if (m_isGrounded) {
+            if (!m_hasTouchedGround) {
+                m_hasTouchedGround = true;
+                PlayerManager.instance.changePlayerSate(PlayerState.Landing);
+            }
+
             return;
         }
         if (m_rb.velocity.y >= 1f) {

@@ -15,12 +15,11 @@ public class SnowballSpawner : MonoBehaviour {
         StartCoroutine(spawning());
         m_objectPool = new Queue<GameObject>();
     }
-    
-    void OnDrawGizmosSelected()
-    {
+
+    private void OnDrawGizmosSelected() {
         // Draw a wire sphere to represent the spawn area
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, new Vector3(width,height,depth));
+        Gizmos.DrawWireCube(transform.position, new Vector3(width, height, depth));
     }
 
     private IEnumerator spawning() {
@@ -36,9 +35,7 @@ public class SnowballSpawner : MonoBehaviour {
                 if (m_objectPool.Count > objectPoolLimit) {
                     m_canInstantiate = false;
                 }
-            }
-            else {
-                print("Usando objeto viejo " + startPos);
+            } else {
                 GameObject tempGo = m_objectPool.Dequeue();
                 tempGo.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 tempGo.transform.position = startPos;
