@@ -8805,14 +8805,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866381039}
-  m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: 12.753702, y: -5.506621, z: 11.599171}
+  m_LocalRotation: {x: -0.0022375626, y: 0.0022375628, z: -0.70710325, w: 0.7071033}
+  m_LocalPosition: {x: 12.922, y: -5.506621, z: 11.599171}
   m_LocalScale: {x: 1, y: 1, z: 5.111884}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 258074958}
   m_RootOrder: 34
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0.363, z: -90}
 --- !u!65 &1866381041
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8892,6 +8892,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerRagdoll
+      objectReference: {fileID: 0}
+    - target: {fileID: 553660966842122896, guid: 111cfa7e6b60ead49905771e7a1971ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 553660966842122897, guid: 111cfa7e6b60ead49905771e7a1971ea,
         type: 3}

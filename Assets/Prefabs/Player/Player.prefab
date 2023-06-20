@@ -2006,7 +2006,7 @@ GameObject:
   - component: {fileID: 7400891601131415187}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2062,6 +2062,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228b7d7a4c70fca4e93ea83159d4024b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ragdollPrefab: {fileID: 268762782831338927, guid: d7c60a1976c5ce44e9fdb70301e62595,
+    type: 3}
 --- !u!114 &7400891601131415190
 MonoBehaviour:
   m_ObjectHideFlags: 0
