@@ -4,12 +4,15 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour {
     public static PlayerManager instance;
 
+    [SerializeField] private GameObject ragdollPrefab;
+    [SerializeField] private Transform shoulders;
+
     private Animator m_animator;
     private PlayerState m_playerState;
     private Rigidbody[] rigidBodies;
     private Rigidbody m_rigidBody;
-    [SerializeField] private GameObject ragdollPrefab;
     private Vector3 m_coliisionDirection;
+
     private void Awake() {
         if (FindObjectOfType<PlayerManager>() != null &&
             FindObjectOfType<PlayerManager>().gameObject != gameObject) {
@@ -72,6 +75,11 @@ public class PlayerManager : MonoBehaviour {
     public void setVectorDirection(Vector3 coliisonVector) {
         m_coliisionDirection = coliisonVector;
     }
+
+    public Transform getShoulders() {
+        return shoulders;
+    }
+
     private void resetAnimatorParameters() {
         foreach (AnimatorControllerParameter parameter in m_animator.parameters) {
             if (parameter.type == AnimatorControllerParameterType.Bool) {
@@ -91,14 +99,12 @@ public class PlayerManager : MonoBehaviour {
             rigidbody.isKinematic = isEnabled;
         }
     }
-    
+
     private void activateRagDoll() {
         gameObject.SetActive(false);
         GameObject tempRagDoll = Instantiate(ragdollPrefab, transform.position, Quaternion.identity);
         tempRagDoll.GetComponent<RagDollManager>().applyForce(m_coliisionDirection);
-
     }
-   
 }
 
 public enum PlayerState {

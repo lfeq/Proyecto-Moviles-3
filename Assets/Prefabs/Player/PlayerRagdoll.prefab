@@ -310,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ragdollPrefab: {fileID: 268762782831338927, guid: d7c60a1976c5ce44e9fdb70301e62595,
     type: 3}
+  shoulders: {fileID: 7865388456465652938}
 --- !u!114 &553660966842122898
 MonoBehaviour:
   m_ObjectHideFlags: 0

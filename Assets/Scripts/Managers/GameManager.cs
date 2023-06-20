@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -17,9 +16,6 @@ public class GameManager : MonoBehaviour {
             return;
         }
         instance = this;
-    }
-
-    private void Start() {
     }
 
     public void changeGameState(GameState newGameState) {
@@ -49,6 +45,9 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.QuitGame:
                 break;
+            case GameState.RestartLevel:
+                restartLevel();
+                break;
             default:
                 throw new UnityException("null Game State");
         }
@@ -69,10 +68,10 @@ public class GameManager : MonoBehaviour {
 
     public IEnumerator resetLevel() {
         yield return new WaitForSeconds(3);
-        restartGame();
+        restartLevel();
     }
 
-    public void restartGame() {
+    public void restartLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -111,5 +110,6 @@ public enum GameState {
     Playing,
     GameOver,
     Win,
-    QuitGame
+    QuitGame,
+    RestartLevel
 }
