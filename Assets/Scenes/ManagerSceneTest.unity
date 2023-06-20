@@ -8893,6 +8893,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRagdoll
       objectReference: {fileID: 0}
+    - target: {fileID: 553660966842122896, guid: 111cfa7e6b60ead49905771e7a1971ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 553660966842122897, guid: 111cfa7e6b60ead49905771e7a1971ea,
         type: 3}
       propertyPath: m_RootOrder

@@ -8,7 +8,7 @@ public class DeadZonePlane : MonoBehaviour
         if (collision.gameObject.tag == "Player") {
             Debug.Log("moriste");
             //LevelManager.instance.playerIsDead();
-            PlayerManager.instance.changePlayerSate(PlayerState.Dead);
+            PlayerManager.instance.changePlayerState(PlayerState.Dead);
         }
     }
 }

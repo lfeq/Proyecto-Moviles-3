@@ -61,12 +61,12 @@ public class PlayerController : MonoBehaviour {
         if (m_isGrounded) {
             if (PlayerManager.instance.getPlayerState() == PlayerState.FreeFall ||
                 PlayerManager.instance.getPlayerState() == PlayerState.JumpFall) {
-                PlayerManager.instance.changePlayerSate(PlayerState.Landing);
+                PlayerManager.instance.changePlayerState(PlayerState.Landing);
             } else {
                 if (movementX != 0 || movementY != 0) {
-                    PlayerManager.instance.changePlayerSate(PlayerState.Running);
+                    PlayerManager.instance.changePlayerState(PlayerState.Running);
                 } else if (inputMovement == Vector3.zero) {
-                    PlayerManager.instance.changePlayerSate(PlayerState.Idle);
+                    PlayerManager.instance.changePlayerState(PlayerState.Idle);
                 }
             }
         }
@@ -76,15 +76,15 @@ public class PlayerController : MonoBehaviour {
         if (m_isGrounded) {
             if (!m_hasTouchedGround) {
                 m_hasTouchedGround = true;
-                PlayerManager.instance.changePlayerSate(PlayerState.Landing);
+                PlayerManager.instance.changePlayerState(PlayerState.Landing);
             }
 
             return;
         }
         if (m_rb.velocity.y >= 1f) {
-            PlayerManager.instance.changePlayerSate(PlayerState.Jump);
+            PlayerManager.instance.changePlayerState(PlayerState.Jump);
         } else if (m_rb.velocity.y < -0.1f) {
-            PlayerManager.instance.changePlayerSate(PlayerState.FreeFall);
+            PlayerManager.instance.changePlayerState(PlayerState.FreeFall);
             //m_animator.SetFloat("falling", -1);
         }
     }

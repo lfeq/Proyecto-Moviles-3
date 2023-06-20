@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotateLogLevelThree : MonoBehaviour
-{
-    public float speed = 10f;
-
-    private Rigidbody rb;
+public class RotateLogLevelThree : MonoBehaviour {
+    private Rigidbody m_rigidBody;
+    [SerializeField] private float speed = 10;
+    [SerializeField] private float dampingFactor = 0.9f;
 
     void Start() {
-        //rb = GetComponent<Rigidbody>();
-        //transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
+        m_rigidBody = GetComponent<Rigidbody>();
     }
+    //void FixedUpdate() {
+    //    m_rigidBody.AddTorque(Vector3.up * 5);
+    //}
+
 
     void FixedUpdate() {
-        //float x = Time.deltaTime;
-        gameObject.transform.rotation= Quaternion.Euler(0,90,0);
-        //rb.AddForce(transform.up * speed);
+        float torqueForce = speed / m_rigidBody.inertiaTensor.magnitude;
+        m_rigidBody.AddTorque(Vector3.up * torqueForce);
+        m_rigidBody.AddTorque(-m_rigidBody.angularVelocity * dampingFactor);
     }
 }
