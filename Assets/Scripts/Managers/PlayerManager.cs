@@ -6,6 +6,8 @@ public class PlayerManager : MonoBehaviour {
 
     private Animator m_animator;
     private PlayerState m_playerState;
+    private Rigidbody[] rigidBodies;
+   
 
     private void Awake() {
         if (FindObjectOfType<PlayerManager>() != null &&
@@ -19,6 +21,9 @@ public class PlayerManager : MonoBehaviour {
     private void Start() {
         m_animator = GetComponent<Animator>();
         m_playerState = PlayerState.None;
+
+        rigidBodies = transform.GetComponentsInChildren<Rigidbody>();
+        setEnabled(true);
     }
 
     public void changePlayerSate(PlayerState t_newSate) {
@@ -54,6 +59,7 @@ public class PlayerManager : MonoBehaviour {
                 break;
             case PlayerState.Dead:
                 m_animator.SetBool("isDying", true);
+                activateRagDoll();
                 break;
         }
     }
@@ -69,6 +75,32 @@ public class PlayerManager : MonoBehaviour {
             }
         }
     }
+
+    //incia ragdoll Logic
+    private void setEnabled(bool isEnabled) {
+        bool isFirstElement = true;
+        foreach (Rigidbody rigidbody in rigidBodies) {
+            if (isFirstElement) {
+                isFirstElement = false;
+                continue;
+            }
+            rigidbody.isKinematic = isEnabled;
+        }
+    }
+
+    private void activateRagDoll() {
+        bool isFirstElement = true;
+        foreach (Rigidbody rigidbody in rigidBodies) {
+            if (isFirstElement) {
+                isFirstElement = false;
+                continue;
+            }
+            rigidbody.isKinematic = false;
+            rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        }
+        m_animator.enabled = false;
+    }
+   
 }
 
 public enum PlayerState {

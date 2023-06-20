@@ -8,12 +8,10 @@ public class LevelTwoObstacle : MonoBehaviour {
     [SerializeField] private float angle = 45.0f;
     [SerializeField] private float distance = 2.0f;
     [SerializeField] private GameObject obstaclePos;
-    private float timer = 0; 
 
 
     void Update() {
-        timer += Time.deltaTime;
-        float x = Mathf.Sin(timer * speed) * distance ;
+        float x = Mathf.Sin(Time.time * speed) * distance;
         transform.position = new Vector3(transform.position.x + x, 2f, transform.position.z);
         //transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Sin(Time.time * speed) * angle);
     }

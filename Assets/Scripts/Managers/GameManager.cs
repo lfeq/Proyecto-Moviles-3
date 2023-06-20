@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
             case GameState.Playing:
                 break;
             case GameState.GameOver:
-                gameOver();
-                StartCoroutine(resetLevel());
+                //gameOver();
+                //StartCoroutine(resetLevel());
                 break;
             case GameState.Win:
                 finalCredits();
