@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    [SerializeField] GameObject nextLevelI, youLoseI;
-    [SerializeField] GameObject mainMenuPanel, gameOverPanel, credistPanel;
+    [SerializeField] private GameObject nextLevelI, youLoseI;
+    [SerializeField] private GameObject mainMenuPanel, gameOverPanel, credistPanel;
     private string m_newLevel;
-    GameState m_gameState;
+    private GameState m_gameState;
 
     private void Awake() {
         if (FindObjectOfType<GameManager>() != null &&
@@ -17,15 +16,14 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        instance = this; 
+        instance = this;
     }
-    void Start()
-    {
-       
+
+    private void Start() {
     }
 
     public void changeGameState(GameState newGameState) {
-        if(m_gameState == newGameState) {
+        if (m_gameState == newGameState) {
             return;
         }
         m_gameState = newGameState;
@@ -49,10 +47,13 @@ public class GameManager : MonoBehaviour
             case GameState.Win:
                 finalCredits();
                 break;
+            case GameState.QuitGame:
+                break;
             default:
                 throw new UnityException("null Game State");
         }
     }
+
     public void changeGameStateInEditor(string t_newState) {
         changeGameState((GameState)System.Enum.Parse(typeof(GameState), t_newState));
     }
@@ -60,45 +61,55 @@ public class GameManager : MonoBehaviour
     public void startGame() {
         changeGameState(GameState.Playing);
     }
+
     public void gameOver() {
         changeGameState(GameState.GameOver);
         youLoseI.SetActive(true);
     }
+
     public IEnumerator resetLevel() {
         yield return new WaitForSeconds(3);
         restartGame();
     }
+
     public void restartGame() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public GameState getGameState() {
         return m_gameState;
     }
+
     public void setNewLevelName(string t_newLevel) {
         m_newLevel = t_newLevel;
     }
+
     public void loadMainMenu() {
         SceneManager.LoadScene("MainMenu");
     }
+
     public IEnumerator loadNextLevel() {
         yield return new WaitForSeconds(5f);
         nextLevel();
     }
+
     private void nextLevel() {
         SceneManager.LoadScene(m_newLevel);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
     private void finalCredits() {
         credistPanel.SetActive(true);
     }
 }
 
-public enum GameState{
+public enum GameState {
     None,
     LoadMainMenu,
     MainMenu,
     LoadLevel,
     Playing,
     GameOver,
-    Win
+    Win,
+    QuitGame
 }
