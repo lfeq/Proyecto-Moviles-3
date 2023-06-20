@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
    public static LevelManager instance;
     [SerializeField] GameObject playerSpawnPoint;
-    public bool isDeadZoneActivated;
+    //public bool isDeadZoneActivated;
     
     private void Awake() {
         instance = this; 
@@ -19,11 +19,9 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        if (isDeadZoneActivated) {
-            //playerGameState(died)
-        }
-        //if (PlayerManager.instance.isWin) {
-        //    GameManager.instance.changeGameState(GameState.LoadLevel);
-        //}
+     
+    }
+    public void playerIsDead() {
+        GameManager.instance.changeGameState(GameState.GameOver);
     }
 }

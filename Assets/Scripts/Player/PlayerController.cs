@@ -29,12 +29,18 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
+        if (PlayerManager.instance.getPlayerState() == PlayerState.Dead) {
+            return;
+        }
         if (Input.GetButtonDown("Jump")) {
             jump();
         }
     }
 
     private void FixedUpdate() {
+        if(PlayerManager.instance.getPlayerState() == PlayerState.Dead) {
+            return;
+        }
         m_isGrounded = Physics.CheckSphere(footPosition.position, footRadius, whatIsGround) &&
                        m_rb.velocity.y < 1f;
         horizontalMovement();
