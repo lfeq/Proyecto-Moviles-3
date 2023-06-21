@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    [SerializeField] private GameObject nextLevelI, youLoseI;
-    [SerializeField] private GameObject mainMenuPanel, gameOverPanel, credistPanel;
+
     private string m_newLevel;
     private GameState m_gameState;
 
@@ -17,9 +15,6 @@ public class GameManager : MonoBehaviour {
             return;
         }
         instance = this;
-    }
-
-    private void Start() {
     }
 
     public void changeGameState(GameState newGameState) {
@@ -36,7 +31,7 @@ public class GameManager : MonoBehaviour {
             case GameState.MainMenu:
                 break;
             case GameState.LoadLevel:
-                StartCoroutine(loadNextLevel());
+                nextLevel();
                 break;
             case GameState.Playing:
                 break;
@@ -48,6 +43,9 @@ public class GameManager : MonoBehaviour {
                 finalCredits();
                 break;
             case GameState.QuitGame:
+                break;
+            case GameState.RestartLevel:
+                restartLevel();
                 break;
             default:
                 throw new UnityException("null Game State");
@@ -64,15 +62,14 @@ public class GameManager : MonoBehaviour {
 
     public void gameOver() {
         changeGameState(GameState.GameOver);
-        youLoseI.SetActive(true);
     }
 
     public IEnumerator resetLevel() {
         yield return new WaitForSeconds(3);
-        restartGame();
+        restartLevel();
     }
 
-    public void restartGame() {
+    public void restartLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -95,11 +92,9 @@ public class GameManager : MonoBehaviour {
 
     private void nextLevel() {
         SceneManager.LoadScene(m_newLevel);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void finalCredits() {
-        credistPanel.SetActive(true);
     }
 }
 
@@ -111,5 +106,6 @@ public enum GameState {
     Playing,
     GameOver,
     Win,
-    QuitGame
+    QuitGame,
+    RestartLevel
 }
