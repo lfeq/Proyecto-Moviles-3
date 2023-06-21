@@ -3,6 +3,6 @@ using UnityEngine;
 public class CreditsManager : MonoBehaviour {
 
     public void returnToMenu() {
-        GameManager.instance.changeGameState(GameState.MainMenu);
+        GameManager.instance.changeGameState(GameState.LoadMainMenu);
     }
 }

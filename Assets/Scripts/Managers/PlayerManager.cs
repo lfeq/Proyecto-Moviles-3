@@ -62,7 +62,6 @@ public class PlayerManager : MonoBehaviour {
                 m_animator.SetFloat("falling", -1);
                 break;
             case PlayerState.Dead:
-                m_animator.SetBool("isDying", true);
                 activateRagDoll();
                 break;
         }

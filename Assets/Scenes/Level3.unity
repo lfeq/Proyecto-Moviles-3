@@ -3332,7 +3332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f4b526f53ea3841a69d34eb349c855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5.5
+  speed: 5.1
   dampingFactor: 1
 --- !u!114 &4219161585618468777
 MonoBehaviour:
