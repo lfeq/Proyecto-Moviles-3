@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
                 finalCredits();
                 break;
             case GameState.QuitGame:
+                exitGame();
                 break;
             case GameState.RestartLevel:
                 restartLevel();
@@ -95,6 +96,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void finalCredits() {
+    }
+
+    private void exitGame() {
+        Application.Quit();
     }
 }
 
