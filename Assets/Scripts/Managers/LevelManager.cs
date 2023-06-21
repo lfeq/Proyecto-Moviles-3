@@ -14,6 +14,7 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] private GameObject player;
     [SerializeField] private CanvasGroup gameOverCanvasGroup;
     [SerializeField] private UnityEvent outOfTimeEvent;
+    [SerializeField] private float movementSpeed, jumpForce;
 
     private float m_currentTime;
     private float slowMoTime = 0.3f;
@@ -34,6 +35,8 @@ public class LevelManager : MonoBehaviour {
         m_currentTime = gameTimeInSeconds;
         gameOverCanvasGroup.alpha = 0;
         gameOverCanvasGroup.interactable = false;
+        PlayerController.instance.setSpeed(movementSpeed);
+        PlayerController.instance.setJumpForce(jumpForce);
         //player.transform.position = playerSpawnpoint;
     }
 

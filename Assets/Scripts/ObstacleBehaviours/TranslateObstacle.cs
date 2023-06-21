@@ -27,7 +27,7 @@ public class TranslateObstacle : MonoBehaviour {
     public Transform target;
     public Transform start;
     public float speed = 1.0f;
-    public float tolerance = 0.1f;
+    public float tolerance = 1f;
 
     private bool hasArrived = false;
 
