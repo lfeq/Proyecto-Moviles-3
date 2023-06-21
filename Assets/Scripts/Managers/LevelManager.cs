@@ -1,16 +1,19 @@
 using Cinemachine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour {
     public static LevelManager instance;
 
+    [SerializeField] private string nextLevelName;
     [SerializeField] private GameObject playerSpawnPoint;
     [SerializeField] private float gameTimeInSeconds;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private CinemachineVirtualCamera playerFollowCamera, ragdollFollowCamera;
     [SerializeField] private GameObject player;
     [SerializeField] private CanvasGroup gameOverCanvasGroup;
+    [SerializeField] private UnityEvent outOfTimeEvent;
 
     private float m_currentTime;
     private float slowMoTime = 0.3f;
@@ -37,6 +40,9 @@ public class LevelManager : MonoBehaviour {
     private void Update() {
         m_currentTime -= Time.deltaTime;
         updateTimerText();
+        if (m_currentTime <= 0) {
+            outOfTimeEvent.Invoke();
+        }
     }
 
     public void playerIsDead() {
@@ -55,6 +61,11 @@ public class LevelManager : MonoBehaviour {
 
     public void restartLevel() {
         GameManager.instance.restartLevel();
+    }
+
+    public void endLevel() {
+        GameManager.instance.setNewLevelName(nextLevelName);
+        GameManager.instance.changeGameState(GameState.LoadLevel);
     }
 
     private void updateTimerText() {

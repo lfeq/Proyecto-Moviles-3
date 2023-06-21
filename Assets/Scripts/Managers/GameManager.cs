@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    [SerializeField] private GameObject nextLevelI, youLoseI;
-    [SerializeField] private GameObject mainMenuPanel, gameOverPanel, credistPanel;
+
     private string m_newLevel;
     private GameState m_gameState;
 
@@ -32,7 +31,7 @@ public class GameManager : MonoBehaviour {
             case GameState.MainMenu:
                 break;
             case GameState.LoadLevel:
-                StartCoroutine(loadNextLevel());
+                nextLevel();
                 break;
             case GameState.Playing:
                 break;
@@ -63,7 +62,6 @@ public class GameManager : MonoBehaviour {
 
     public void gameOver() {
         changeGameState(GameState.GameOver);
-        youLoseI.SetActive(true);
     }
 
     public IEnumerator resetLevel() {
@@ -94,11 +92,9 @@ public class GameManager : MonoBehaviour {
 
     private void nextLevel() {
         SceneManager.LoadScene(m_newLevel);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     private void finalCredits() {
-        credistPanel.SetActive(true);
     }
 }
 
