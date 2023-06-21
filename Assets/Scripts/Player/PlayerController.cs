@@ -47,6 +47,13 @@ public class PlayerController : MonoBehaviour {
         verticalMovement();
     }
 
+    public void setSpeed(float t_speed) {
+        speed = t_speed;
+    }
+
+    public void setJumpForce(float t_jumpForce) {
+        jumpForce = t_jumpForce;
+    }
     private void horizontalMovement() {
         float movementX = Input.GetAxisRaw("Horizontal");
         float movementY = Input.GetAxisRaw("Vertical");
