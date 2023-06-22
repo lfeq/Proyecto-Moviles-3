@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -10,8 +9,7 @@ public class GameManager : MonoBehaviour {
     private GameState m_gameState;
 
     private void Awake() {
-        if (FindObjectOfType<GameManager>() != null &&
-           FindObjectOfType<GameManager>().gameObject != gameObject) {
+        if (instance != null && instance != this) {
             Destroy(gameObject);
             return;
         }
