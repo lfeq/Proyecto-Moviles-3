@@ -403,6 +403,11 @@ PrefabInstance:
       objectReference: {fileID: 1999125662}
     - target: {fileID: 4965692922769552484, guid: c679e16cf90553b4a9a1bdefb0849d32,
         type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 442600638}
+    - target: {fileID: 4965692922769552484, guid: c679e16cf90553b4a9a1bdefb0849d32,
+        type: 3}
       propertyPath: movementSpeed
       value: 6
       objectReference: {fileID: 0}
@@ -1763,6 +1768,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: '[GameManager]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1965237685511973811, guid: 685bc9b4ffc11b84ea9540a1dbe1dee6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1965237685511973821, guid: 685bc9b4ffc11b84ea9540a1dbe1dee6,
         type: 3}

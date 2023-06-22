@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
@@ -14,7 +15,9 @@ public class GameManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+        DontDestroyOnLoad(gameObject);
         instance = this;
+        m_gameState = GameState.None;
     }
 
     public void changeGameState(GameState newGameState) {
@@ -72,8 +75,12 @@ public class GameManager : MonoBehaviour {
 
     public void restartLevel() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //setPlayerSpawn();
     }
 
+    //private void setPlayerSpawn() {
+    //    PlayerManager.instance.transform.position = LevelManager.instance.spawnPoint.transform.position;
+    //}
     public GameState getGameState() {
         return m_gameState;
     }
