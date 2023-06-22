@@ -36,11 +36,12 @@ public class LevelManager : MonoBehaviour {
     private void Start() {
         Time.timeScale = 1f;
         GameManager.instance.changeGameState(GameState.Playing);
-        GameManager.instance.changeGameState(GameState.Playing);
         if (PlayerManager.instance == null) {
             Instantiate(player);
         }
         PlayerManager.instance.transform.position = playerSpawnPoint.transform.position;
+        PlayerManager.instance.gameObject.SetActive(true);
+        PlayerManager.instance.changePlayerState(PlayerState.None);
         playerFollowCamera.Follow = PlayerManager.instance.getShoulders();
         m_currentTime = gameTimeInSeconds;
         gameOverCanvasGroup.alpha = 0;
