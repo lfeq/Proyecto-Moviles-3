@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour {
 
     [SerializeField] private string nextLevelName;
     [SerializeField] private GameObject playerSpawnPoint;
+    //public GameObject spawnPoint;
     [SerializeField] private float gameTimeInSeconds;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private CinemachineVirtualCamera playerFollowCamera, ragdollFollowCamera;
@@ -20,7 +21,16 @@ public class LevelManager : MonoBehaviour {
     private float slowMoTime = 0.3f;
 
     private void Awake() {
+        if (FindObjectOfType<LevelManager>() != null &&
+          FindObjectOfType<LevelManager>().gameObject != gameObject) {
+            Destroy(gameObject);
+            return;
+        }
         instance = this;
+        if (PlayerManager.instance == null) {
+            Instantiate(player);
+        }
+        
     }
 
     private void Start() {
@@ -64,6 +74,7 @@ public class LevelManager : MonoBehaviour {
 
     public void restartLevel() {
         GameManager.instance.restartLevel();
+       
     }
 
     public void endLevel() {
