@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour {
     private Vector3 m_coliisionDirection;
 
     private void Awake() {
+        m_animator = GetComponent<Animator>();
         if (FindObjectOfType<PlayerManager>() != null &&
             FindObjectOfType<PlayerManager>().gameObject != gameObject) {
             Destroy(gameObject);
@@ -23,7 +24,6 @@ public class PlayerManager : MonoBehaviour {
     }
 
     private void Start() {
-        m_animator = GetComponent<Animator>();
         m_playerState = PlayerState.None;
         m_rigidBody = GetComponent<Rigidbody>();
         rigidBodies = transform.GetComponentsInChildren<Rigidbody>();
