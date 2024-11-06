@@ -1,19 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class SnowballSpawner : MonoBehaviour {
-    [SerializeField] private GameObject snowBall;
-    [SerializeField] private int objectPoolLimit = 5;
     [SerializeField] private float spawnTimeInSeconds = 3f;
     [SerializeField] private float width = 5f, height = 5f, depth = 5f;
-
-    private Queue<GameObject> m_objectPool;
-    private bool m_canInstantiate = true;
-
+    [SerializeField] private Snowball snowBall;
+    [SerializeField] private int defatultCapacity = 20;
+    [SerializeField] private int maxSize = 30;
+    [SerializeField]private int currentObjInPool = 0;
+    private bool collectionCheck = false;
+    private IObjectPool<Snowball> snowBallPool;
+    private void Awake() {
+        snowBallPool = new ObjectPool<Snowball>(createSnowball,onGetFromSnowBallPool,onReleaseToSnowBallPool,onDestroySnowBallObject,collectionCheck,defatultCapacity,maxSize);
+    }
     private void Start() {
+    //    for (int i = 0; i < defatultCapacity; i++) {
+    //        Snowball snowball = createSnowball();
+    //        if (snowball != null) {
+    //            snowBallPool.Release(snowball);
+    //        }
+    //    }
         StartCoroutine(spawning());
-        m_objectPool = new Queue<GameObject>();
+    }
+
+    /// <summary>
+    /// funtion to create objects from pool
+    /// </summary>
+    private Snowball createSnowball() {
+        if(currentObjInPool >= maxSize) {
+            Debug.LogWarning("the snowBall pool is full");
+            return null;
+        }
+        Snowball snowBallInstance = Instantiate(snowBall);
+        //snowBallInstance.SetActive(false);
+        snowBallInstance.snowBallPool = snowBallPool;
+        return snowBallInstance;
+    }
+
+    /// <summary>
+    /// funtion to get objects from pool
+    /// </summary>
+    private void onGetFromSnowBallPool(Snowball snowballObject) {
+        snowballObject.gameObject.SetActive(true);
+        currentObjInPool++;
+    }
+
+    /// <summary>
+    /// funtion to deactivate objects
+    /// </summary>
+    private void onReleaseToSnowBallPool(Snowball snowballObject) {
+        Debug.Log("Releasing snowball to pool...");
+        snowballObject.gameObject.SetActive(false);
+        currentObjInPool--;
+    }
+
+    /// <summary>
+    /// funtion to destroy objects from pool
+    /// </summary>
+    private void onDestroySnowBallObject(Snowball snowballObject) {
+        Destroy(snowballObject.gameObject);
     }
 
     private void OnDrawGizmosSelected() {
@@ -30,17 +77,11 @@ public class SnowballSpawner : MonoBehaviour {
             }
             float xPos = Random.Range(-width / 2, width / 2);
             Vector3 startPos = new Vector3(xPos, transform.position.y, transform.position.z);
-            if (m_canInstantiate) {
-                m_objectPool.Enqueue(Instantiate(snowBall, startPos, Quaternion.identity));
-                if (m_objectPool.Count > objectPoolLimit) {
-                    m_canInstantiate = false;
-                }
-            } else {
-                GameObject tempGo = m_objectPool.Dequeue();
-                tempGo.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                tempGo.transform.position = startPos;
-                tempGo.SetActive(true);
-                m_objectPool.Enqueue(tempGo);
+            Snowball snowball = snowBallPool.Get();
+            if(snowball != null) {
+                snowBall.transform.position = startPos;
+                snowBall.gameObject.SetActive(true);
+                snowBall.deactivate();
             }
         }
     }
