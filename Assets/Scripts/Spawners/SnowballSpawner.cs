@@ -5,23 +5,24 @@ using UnityEngine.Pool;
 
 public class SnowballSpawner : MonoBehaviour {
     [SerializeField] private float spawnTimeInSeconds = 3f;
-    [SerializeField] private float width = 5f, height = 5f, depth = 5f;
+    [SerializeField] private float timeoutDelay = 10f;
     [SerializeField] private Snowball snowBall;
+    [SerializeField] private float width = 5f, height = 5f, depth = 5f;
     [SerializeField] private int defatultCapacity = 20;
     [SerializeField] private int maxSize = 30;
-    [SerializeField]private int currentObjInPool = 0;
+    [SerializeField] private int currentObjInPool = 0;
     private bool collectionCheck = false;
     private IObjectPool<Snowball> snowBallPool;
     private void Awake() {
-        snowBallPool = new ObjectPool<Snowball>(createSnowball,onGetFromSnowBallPool,onReleaseToSnowBallPool,onDestroySnowBallObject,collectionCheck,defatultCapacity,maxSize);
+        snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
     }
     private void Start() {
-    //    for (int i = 0; i < defatultCapacity; i++) {
-    //        Snowball snowball = createSnowball();
-    //        if (snowball != null) {
-    //            snowBallPool.Release(snowball);
-    //        }
-    //    }
+        //    for (int i = 0; i < defatultCapacity; i++) {
+        //        Snowball snowball = createSnowball();
+        //        if (snowball != null) {
+        //            snowBallPool.Release(snowball);
+        //        }
+        //    }
         StartCoroutine(spawning());
     }
 
@@ -29,7 +30,7 @@ public class SnowballSpawner : MonoBehaviour {
     /// funtion to create objects from pool
     /// </summary>
     private Snowball createSnowball() {
-        if(currentObjInPool >= maxSize) {
+        if (currentObjInPool >= maxSize) {
             Debug.LogWarning("the snowBall pool is full");
             return null;
         }
@@ -78,11 +79,31 @@ public class SnowballSpawner : MonoBehaviour {
             float xPos = Random.Range(-width / 2, width / 2);
             Vector3 startPos = new Vector3(xPos, transform.position.y, transform.position.z);
             Snowball snowball = snowBallPool.Get();
-            if(snowball != null) {
+            if (snowball != null) {
                 snowBall.transform.position = startPos;
                 snowBall.gameObject.SetActive(true);
-                snowBall.deactivate();
+                deactivate();
             }
         }
     }
+
+    public void deactivate() { 
+        //Debug.LogWarning("se llamo a la funcion deactivateeeeeeeeeeeeeeeeeeeeeee");
+        //if (!gameObject.activeInHierarchy) {
+        //    return;
+        //}
+        StartCoroutine(deactivateSnowBall(timeoutDelay));
+       // Debug.LogWarning("llamando a corrutinaaaaaa");
+    }
+    //aqui le voy a agregar un snowball local para que haga todo en base a uno y no a todos
+    IEnumerator deactivateSnowBall(float delay){
+        //Debug.LogWarning("llego antes del if de la corrutina");
+        yield return new WaitForSeconds(delay);
+        //if (gameObject.activeInHierarchy)
+        //{
+        gameObject.SetActive(false);
+        snowBallPool.Release(snowBall);
+        Debug.LogWarning("llego hasta esta corrutina");
+     }
+    
 }
