@@ -13,37 +13,39 @@ public class SnowballSpawner : MonoBehaviour {
     [SerializeField] private int currentObjInPool = 0;
     private bool collectionCheck = false;
     private IObjectPool<Snowball> snowBallPool;
+    public Factory factory;
+   
     private void Awake() {
+        factory = FindObjectOfType<Factory>();
         snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
     }
     private void Start() {
-        //    for (int i = 0; i < defatultCapacity; i++) {
-        //        Snowball snowball = createSnowball();
-        //        if (snowball != null) {
-        //            snowBallPool.Release(snowball);
-        //        }
-        //    }
-        StartCoroutine(spawning());
+            StartCoroutine(spawning());
     }
-
-    /// <summary>
-    /// funtion to create objects from pool
-    /// </summary>
-    private Snowball createSnowball() {
+/// <summary>
+/// funtion to create objects from pool
+/// </summary>
+private Snowball createSnowball() {
         if (currentObjInPool >= maxSize) {
             Debug.LogWarning("the snowBall pool is full");
             return null;
         }
-        Snowball snowBallInstance = Instantiate(snowBall);
-        //snowBallInstance.SetActive(false);
-        snowBallInstance.snowBallPool = snowBallPool;
-        return snowBallInstance;
+        Snowball snowballInstance = factory.creeateSnowball();
+        if(snowballInstance == null) {
+            Debug.LogError("error al intentar crear una snowball");
+        }
+        snowballInstance.snowBallPool = snowBallPool;
+        snowballInstance.gameObject.SetActive(false);
+        return snowballInstance;
     }
 
     /// <summary>
     /// funtion to get objects from pool
     /// </summary>
     private void onGetFromSnowBallPool(Snowball snowballObject) {
+        float xPos = Random.Range(-width / 2, width / 2);
+        Vector3 startPos = new Vector3(xPos, transform.position.y, transform.position.z);
+        snowballObject.transform.position = startPos;
         snowballObject.gameObject.SetActive(true);
         currentObjInPool++;
     }
@@ -52,9 +54,10 @@ public class SnowballSpawner : MonoBehaviour {
     /// funtion to deactivate objects
     /// </summary>
     private void onReleaseToSnowBallPool(Snowball snowballObject) {
-        Debug.Log("Releasing snowball to pool...");
         snowballObject.gameObject.SetActive(false);
-        currentObjInPool--;
+        if (currentObjInPool > 0) {
+            currentObjInPool--;
+        }
     }
 
     /// <summary>
@@ -78,32 +81,20 @@ public class SnowballSpawner : MonoBehaviour {
             }
             float xPos = Random.Range(-width / 2, width / 2);
             Vector3 startPos = new Vector3(xPos, transform.position.y, transform.position.z);
-            Snowball snowball = snowBallPool.Get();
-            if (snowball != null) {
+            Snowball snowballInstance = snowBallPool.Get();
+            if (snowballInstance != null) {
                 snowBall.transform.position = startPos;
                 snowBall.gameObject.SetActive(true);
-                deactivate();
-            }
+                StartCoroutine(deactivateSnowBall(snowballInstance, timeoutDelay));
+            } 
         }
     }
 
-    public void deactivate() { 
-        //Debug.LogWarning("se llamo a la funcion deactivateeeeeeeeeeeeeeeeeeeeeee");
-        //if (!gameObject.activeInHierarchy) {
-        //    return;
-        //}
-        StartCoroutine(deactivateSnowBall(timeoutDelay));
-       // Debug.LogWarning("llamando a corrutinaaaaaa");
-    }
-    //aqui le voy a agregar un snowball local para que haga todo en base a uno y no a todos
-    IEnumerator deactivateSnowBall(float delay){
-        //Debug.LogWarning("llego antes del if de la corrutina");
+    IEnumerator deactivateSnowBall(Snowball snowballInstance,float delay){
         yield return new WaitForSeconds(delay);
-        //if (gameObject.activeInHierarchy)
-        //{
-        gameObject.SetActive(false);
-        snowBallPool.Release(snowBall);
-        Debug.LogWarning("llego hasta esta corrutina");
-     }
-    
+        if (snowballInstance != null && snowballInstance.gameObject.activeInHierarchy) {
+            snowballInstance.gameObject.SetActive(false);
+            snowBallPool.Release(snowballInstance);
+        } 
+    }
 }

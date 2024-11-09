@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class Factory : MonoBehaviour
 {
-    [SerializeField] private Snowball snowballPrefab;
+    private SnowBallFactory snowBallFactory;
 
-  
-    public Obstacle CreateObstacle(string type) {
-        switch (type) {
-            case "Snowball":
-                //return Instantiate(snowballPrefab);
-            
-            default:
-                Debug.LogWarning("Tipo de obstáculo no soportado");
-                return null;
-        }
+    private void Awake() {
+        snowBallFactory = FindObjectOfType<SnowBallFactory>();
+    }
+    public Snowball creeateSnowball() {
+        return (Snowball)snowBallFactory.createObst();
     }
 }
 
-public abstract class Obstacle {
-    public abstract void showObstacle(); 
-}
+
 
