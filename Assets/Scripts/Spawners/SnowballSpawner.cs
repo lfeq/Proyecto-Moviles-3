@@ -22,10 +22,10 @@ public class SnowballSpawner : MonoBehaviour {
     private void Start() {
             StartCoroutine(spawning());
     }
-/// <summary>
-/// funtion to create objects from pool
-/// </summary>
-private Snowball createSnowball() {
+    /// <summary>
+    /// funtion to create objects from pool
+    /// </summary>
+    private Snowball createSnowball() {
         if (currentObjInPool >= maxSize) {
             Debug.LogWarning("the snowBall pool is full");
             return null;
@@ -51,7 +51,7 @@ private Snowball createSnowball() {
     }
 
     /// <summary>
-    /// funtion to deactivate objects
+    /// funtion to deactivate objects from pool
     /// </summary>
     private void onReleaseToSnowBallPool(Snowball snowballObject) {
         snowballObject.gameObject.SetActive(false);
@@ -65,12 +65,6 @@ private Snowball createSnowball() {
     /// </summary>
     private void onDestroySnowBallObject(Snowball snowballObject) {
         Destroy(snowballObject.gameObject);
-    }
-
-    private void OnDrawGizmosSelected() {
-        // Draw a wire sphere to represent the spawn area
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, new Vector3(width, height, depth));
     }
 
     private IEnumerator spawning() {
@@ -89,7 +83,6 @@ private Snowball createSnowball() {
             } 
         }
     }
-
     IEnumerator deactivateSnowBall(Snowball snowballInstance,float delay){
         yield return new WaitForSeconds(delay);
         if (snowballInstance != null && snowballInstance.gameObject.activeInHierarchy) {
@@ -97,4 +90,9 @@ private Snowball createSnowball() {
             snowBallPool.Release(snowballInstance);
         } 
     }
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, new Vector3(width, height, depth));
+    }
+
 }
