@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Factory : MonoBehaviour
+public abstract class Factory : MonoBehaviour
 {
-    private SnowBallFactory snowBallFactory;
+    //aqui van todas mis factory
+    public SnowBallFactory snowBallFactory;
+    public abstract ObstacleInterface createObstacle();
 
     private void Awake() {
         snowBallFactory = FindObjectOfType<SnowBallFactory>();
     }
-    public Snowball creeateSnowball() {
+
+    //public override ObstacleInterface createObstacle(Obstacle obstcle){
+    //    return (Snowball)snowBallFactory.createObst();
+    //}
+    public Snowball creeateSnowball()
+    {
         return (Snowball)snowBallFactory.createObst();
     }
 }

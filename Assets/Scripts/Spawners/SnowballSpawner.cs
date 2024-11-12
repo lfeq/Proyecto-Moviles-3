@@ -14,7 +14,8 @@ public class SnowballSpawner : MonoBehaviour {
     private bool collectionCheck = false;
     private IObjectPool<Snowball> snowBallPool;
     public Factory factory;
-   
+    public ObstacleInterface obstacleInterface;
+
     private void Awake() {
         factory = FindObjectOfType<Factory>();
         snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
@@ -31,6 +32,7 @@ public class SnowballSpawner : MonoBehaviour {
             return null;
         }
         Snowball snowballInstance = factory.creeateSnowball();
+        //Snowball snowballInstance = obstacleInterface.createObstacle(snowballInstance);
         if(snowballInstance == null) {
             Debug.LogError("error al intentar crear una snowball");
         }

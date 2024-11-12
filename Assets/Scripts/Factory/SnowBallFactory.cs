@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SnowBallFactory : MonoBehaviour,ObstaclesInterface
 {
+
     [SerializeField] private GameObject snowballPrefab;  
     public Obstacle createObst() {
         if(snowballPrefab == null) {
