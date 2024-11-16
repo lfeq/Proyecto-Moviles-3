@@ -440,7 +440,7 @@ MonoBehaviour:
   defatultCapacity: 10
   maxSize: 15
   currentObjInPool: 0
-  factory: {fileID: 1974060887}
+  factory: {fileID: 1974060889}
 --- !u!4 &396874749
 Transform:
   m_ObjectHideFlags: 0
@@ -1143,6 +1143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d62f0030a564cfa478e92527338f7131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snowBallFactory: {fileID: 1595299124}
   snowballPrefab: {fileID: 6803799189407101610, guid: fdb54a102c129ad4383ff8ae84fc5a76,
     type: 3}
 --- !u!4 &1595299125
@@ -1244,6 +1245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 944e127fbde180f49afcdf4e9bf0adfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snowBallFactory: {fileID: 0}
 --- !u!4 &1735241534
 Transform:
   m_ObjectHideFlags: 0
@@ -1365,7 +1367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1974060888}
-  - component: {fileID: 1974060887}
+  - component: {fileID: 1974060889}
   m_Layer: 0
   m_Name: ObstacleFactory
   m_TagString: Untagged
@@ -1373,18 +1375,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1974060887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974060886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 944e127fbde180f49afcdf4e9bf0adfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1974060888
 Transform:
   m_ObjectHideFlags: 0
@@ -1400,6 +1390,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1974060889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974060886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944e127fbde180f49afcdf4e9bf0adfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snowBallFactory: {fileID: 1595299124}
 --- !u!1001 &2095162163
 PrefabInstance:
   m_ObjectHideFlags: 0

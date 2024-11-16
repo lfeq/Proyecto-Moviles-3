@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class SnowballSpawner : MonoBehaviour {
+public class SnowballSpawner : MonoBehaviour 
+{
     [SerializeField] private float spawnTimeInSeconds = 3f;
     [SerializeField] private float timeoutDelay = 10f;
     [SerializeField] private Snowball snowBall;
@@ -14,10 +15,11 @@ public class SnowballSpawner : MonoBehaviour {
     private bool collectionCheck = false;
     private IObjectPool<Snowball> snowBallPool;
     public Factory factory;
-    public ObstacleInterface obstacleInterface;
+    public ObstaclesInterface obstaclesInterface;
 
     private void Awake() {
-        factory = FindObjectOfType<Factory>();
+        //factory = FindObjectOfType<Factory>();
+        obstaclesInterface =(ObstaclesInterface) FindObjectOfType<Factory>();
         snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
     }
     private void Start() {
@@ -31,9 +33,9 @@ public class SnowballSpawner : MonoBehaviour {
             Debug.LogWarning("the snowBall pool is full");
             return null;
         }
-        Snowball snowballInstance = factory.creeateSnowball();
-        //Snowball snowballInstance = obstacleInterface.createObstacle(snowballInstance);
-        if(snowballInstance == null) {
+        // Snowball snowballInstance = factory.creeateSnowball();
+        Snowball snowballInstance =(Snowball)obstaclesInterface.createObst();
+        if (snowballInstance == null) {
             Debug.LogError("error al intentar crear una snowball");
         }
         snowballInstance.snowBallPool = snowBallPool;
@@ -96,5 +98,4 @@ public class SnowballSpawner : MonoBehaviour {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, new Vector3(width, height, depth));
     }
-
 }
