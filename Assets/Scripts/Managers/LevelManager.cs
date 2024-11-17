@@ -16,7 +16,8 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] private CanvasGroup gameOverCanvasGroup;
     [SerializeField] private UnityEvent outOfTimeEvent;
     [SerializeField] private float movementSpeed, jumpForce;
-    [SerializeField] private AudioSource audioSource;
+   // [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gameplayMusic;
 
     private float m_currentTime;
     private float slowMoTime = 0.3f;
@@ -49,7 +50,8 @@ public class LevelManager : MonoBehaviour {
         gameOverCanvasGroup.interactable = false;
         PlayerController.instance.setSpeed(movementSpeed);
         PlayerController.instance.setJumpForce(jumpForce);
-        audioSource.Play();
+        //audioSource.Play();
+        AudioManager.instance.playGameplayMusic();
         //player.transform.position = playerSpawnpoint;
     }
 
