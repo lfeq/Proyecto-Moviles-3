@@ -5,8 +5,8 @@ using UnityEngine.Pool;
 
 public class SnowballSpawner : MonoBehaviour 
 {
-    [SerializeField] private float spawnTimeInSeconds = 3f;
-    [SerializeField] private float timeoutDelay = 10f;
+    [SerializeField] private float spawnTimeInSeconds = 5f;
+    [SerializeField] private float timeoutDelay = 15f;
     [SerializeField] private Snowball snowBall;
     [SerializeField] private float width = 5f, height = 5f, depth = 5f;
     [SerializeField] private int defatultCapacity = 20;

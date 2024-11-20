@@ -9,6 +9,8 @@ public class DeadZonePlane : MonoBehaviour
             Debug.Log("moriste");
             //LevelManager.instance.playerIsDead();
             PlayerManager.instance.changePlayerState(PlayerState.Dead);
+            LevelManager.instance.playerIsDead();
+
         }
     }
 }
