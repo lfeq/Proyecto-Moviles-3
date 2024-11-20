@@ -34,7 +34,7 @@ public class SnowballSpawner : MonoBehaviour
             return null;
         }
         // Snowball snowballInstance = factory.creeateSnowball();
-        Snowball snowballInstance =(Snowball)obstaclesInterface.createObst();
+        Snowball snowballInstance =obstaclesInterface.createSnowBall();
         if (snowballInstance == null) {
             Debug.LogError("error al intentar crear una snowball");
         }

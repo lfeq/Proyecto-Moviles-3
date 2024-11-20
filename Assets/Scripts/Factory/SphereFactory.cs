@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnowBallFactory : Factory,ObstaclesInterface
+public class SphereFactory : Factory
 {
-    [SerializeField] private GameObject snowballPrefab;
-    public Obstacle createObst() {
-        if (snowballPrefab == null) {
+    [SerializeField] private GameObject spherePrefab;
+    public Obstacle createObstSphere() {
+        if (spherePrefab == null) {
             Debug.LogError("no hay prefab asignado para Snowball");
             return null;
         }
-        Snowball newSnowball = Instantiate(snowballPrefab).GetComponent<Snowball>();
-        if (newSnowball == null) {
+        Sphere newSphere = Instantiate(spherePrefab).GetComponent<Sphere>();
+        if (newSphere == null) {
             Debug.LogError("el prefab no tiene un componente Snowball");
         }
         Debug.Log("snowball creada correctamente en SnowBallFactory");
-        return newSnowball;
+        return newSphere;
     }
 }

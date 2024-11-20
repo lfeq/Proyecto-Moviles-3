@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface ObstaclesInterface 
 {
-    public Obstacle createObst();
+    public Obstacle createObst(Obstacle obstacle);
+    public Snowball createSnowBall();
+    public Sphere createSphere();
  
 }
