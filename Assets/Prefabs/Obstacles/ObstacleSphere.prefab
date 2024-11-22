@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1513508087264168318}
   - component: {fileID: 2895543946101977508}
   - component: {fileID: 2393347660304841300}
+  - component: {fileID: 1755635155663087489}
   m_Layer: 0
   m_Name: ObstacleSphere
   m_TagString: Untagged
@@ -96,7 +97,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7705769391085867017}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -115,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   start: {fileID: 0}
-  speed: 1
+  speed: 3.5
   tolerance: 0.1
 --- !u!54 &2895543946101977508
 Rigidbody:
@@ -143,6 +144,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7936ce2f3d3527e46a9955a2845f66d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1755635155663087489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7705769391085867017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d802f32d77e93974fb64d4f4fcaf1517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7705769391332191387

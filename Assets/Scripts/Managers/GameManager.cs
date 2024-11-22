@@ -72,7 +72,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void restartLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
         //setPlayerSpawn();
     }
 

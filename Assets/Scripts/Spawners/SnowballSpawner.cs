@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class SnowballSpawner : MonoBehaviour 
 {
     [SerializeField] private float spawnTimeInSeconds = 5f;
-    [SerializeField] private float timeoutDelay = 15f;
+    [SerializeField] private float timeoutDelay = 25f;
     [SerializeField] private Snowball snowBall;
     [SerializeField] private float width = 5f, height = 5f, depth = 5f;
     [SerializeField] private int defatultCapacity = 20;
@@ -51,6 +51,11 @@ public class SnowballSpawner : MonoBehaviour
         Vector3 startPos = new Vector3(xPos, transform.position.y, transform.position.z);
         snowballObject.transform.position = startPos;
         snowballObject.gameObject.SetActive(true);
+        Rigidbody rigidbody = snowballObject.GetComponent<Rigidbody>();
+        if (rigidbody != null) {
+            rigidbody.velocity = Vector3.zero; 
+            rigidbody.angularVelocity = Vector3.zero; 
+        }
         currentObjInPool++;
     }
 

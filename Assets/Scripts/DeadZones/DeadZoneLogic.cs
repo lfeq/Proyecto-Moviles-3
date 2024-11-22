@@ -6,6 +6,7 @@ public class DeadZoneLogic : MonoBehaviour {
     
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
+            //Debug.LogWarning("pego con player!!!!!!!!!!!!!!");
             Vector3 collisionDirection = GetComponent<Rigidbody>().velocity.normalized;
             if(collisionDirection == Vector3.zero) {
              collisionDirection = GetComponent<Rigidbody>().angularVelocity.normalized;

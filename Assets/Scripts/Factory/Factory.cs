@@ -7,11 +7,12 @@ public  class Factory :  MonoBehaviour, ObstaclesInterface
     //aqui van todas mis factory
     public SnowBallFactory snowBallFactory;
     public SphereFactory sphereFactory;
-    //public abstract Obstacle createObst();
-
-    
+    public LogFactory logFactory;
+   
     private void Awake() {
         snowBallFactory = FindObjectOfType<SnowBallFactory>();
+        sphereFactory = FindObjectOfType<SphereFactory>();
+        logFactory = FindObjectOfType<LogFactory>();
     }
     public Obstacle createObst(Obstacle obstacle) {
         if (snowBallFactory == null) {
@@ -30,6 +31,11 @@ public  class Factory :  MonoBehaviour, ObstaclesInterface
     public Sphere createSphere() {
         Debug.LogWarning("estoy en factory main");
         return (Sphere)sphereFactory.createObstSphere();
+    }
+
+    public Log createLog() {
+        Debug.LogWarning("estoy en factory main");
+        return (Log)logFactory.createObstLog();
     }
 }
 
