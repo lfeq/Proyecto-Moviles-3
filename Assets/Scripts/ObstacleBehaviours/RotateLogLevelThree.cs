@@ -23,7 +23,7 @@ public class RotateLogLevelThree : MonoBehaviour {
     }
 
     private IEnumerator startSpin() {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2.5f);
         m_isRotating = true;
     }
 }

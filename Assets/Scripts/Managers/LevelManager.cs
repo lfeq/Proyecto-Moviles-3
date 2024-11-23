@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,6 +19,8 @@ public class LevelManager : MonoBehaviour {
     [SerializeField] private float movementSpeed, jumpForce;
    // [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip gameplayMusic;
+    [SerializeField] private TextMeshProUGUI halfOfTheTimeText;
+
 
     private float m_currentTime;
     private float slowMoTime = 0.3f;
@@ -50,17 +53,29 @@ public class LevelManager : MonoBehaviour {
         gameOverCanvasGroup.interactable = false;
         PlayerController.instance.setSpeed(movementSpeed);
         PlayerController.instance.setJumpForce(jumpForce);
-        //audioSource.Play();
         AudioManager.instance.playGameplayMusic();
-        //player.transform.position = playerSpawnpoint;
+        halfOfTheTimeText.gameObject.SetActive(false);
     }
 
     private void Update() {
         m_currentTime -= Time.deltaTime;
         updateTimerText();
+        if(m_currentTime <= gameTimeInSeconds/2) {
+            showHalfTimeMessage();
+        }
         if (m_currentTime <= 0) {
             outOfTimeEvent.Invoke();
         }
+    }
+
+    private void showHalfTimeMessage() {
+        halfOfTheTimeText.gameObject.SetActive(true);
+        StartCoroutine(hideHalfTimeMessage());
+    }
+
+    private IEnumerator hideHalfTimeMessage() {
+        yield return new WaitForSeconds(3f);
+        halfOfTheTimeText.gameObject.SetActive(false);
     }
 
     public void playerIsDead() {
@@ -91,7 +106,6 @@ public class LevelManager : MonoBehaviour {
         int minutes = Mathf.FloorToInt(m_currentTime / 60f);
         int seconds = Mathf.FloorToInt(m_currentTime % 60f);
         int milliseconds = Mathf.FloorToInt((m_currentTime * 100f) % 100f);
-
         string timerString = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
         timerText.text = timerString;
     }
