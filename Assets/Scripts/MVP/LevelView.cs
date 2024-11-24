@@ -7,11 +7,16 @@ public class LevelView : MonoBehaviour, InterfaceLevel
 {
     [SerializeField] private TextMeshProUGUI halfText;
     [SerializeField] private TextMeshProUGUI timeTxt;
+    [SerializeField] private CollisionManager collisionManager; 
+
     private LevelPresenter levelPresenter;
 
     private void Start() {
         LevelModel model = new LevelModel();
         levelPresenter = new LevelPresenter(model, this);
+        if (collisionManager != null) {
+            collisionManager.Initialize(levelPresenter);
+        }
         halfText.enabled = false; 
         timeTxt.enabled = false;
     }
@@ -35,11 +40,5 @@ public class LevelView : MonoBehaviour, InterfaceLevel
     private IEnumerator hideHalfText() {
         yield return new WaitForSeconds(5f);
         halfText.enabled = false;
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
-            levelPresenter.playerIsOnHalfOfLevel();
-        }
     }
 }
