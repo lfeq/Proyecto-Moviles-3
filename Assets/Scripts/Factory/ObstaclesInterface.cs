@@ -8,5 +8,6 @@ public interface ObstaclesInterface
     public Snowball createSnowBall();
     public Sphere createSphere();
     public Log createLog();
+    public LogLevelThree createLogLevelThree();
  
 }

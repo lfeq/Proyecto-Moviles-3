@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LevelPresenter : MonoBehaviour
 {
@@ -14,5 +15,14 @@ public class LevelPresenter : MonoBehaviour
     public void playerIsOnHalfOfLevel() {
         levelmodel.setHalfOfTheLevel(true);
         interfaceLevel.showHalfText();
+    }
+
+    public void checkTimeOflevel() {
+        float currentTime = LevelManager.instance.getCurrentTime(); 
+        float totalTime = LevelManager.instance.getGameTimeInSeconds();
+        if (!levelmodel.halfOfTimeReached && currentTime <= totalTime / 2) {
+            levelmodel.setHalfOfTime(true);
+            interfaceLevel.showTimeofLvlText(); 
+        }
     }
 }

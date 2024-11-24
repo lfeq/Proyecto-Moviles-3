@@ -8,7 +8,7 @@ public  class Factory :  MonoBehaviour, ObstaclesInterface
     public SnowBallFactory snowBallFactory;
     public SphereFactory sphereFactory;
     public LogFactory logFactory;
-   
+    public LogLevelThreeFactory logLvlThreeFactory;
     private void Awake() {
         snowBallFactory = FindObjectOfType<SnowBallFactory>();
         sphereFactory = FindObjectOfType<SphereFactory>();
@@ -36,6 +36,11 @@ public  class Factory :  MonoBehaviour, ObstaclesInterface
     public Log createLog() {
         Debug.LogWarning("estoy en factory main");
         return (Log)logFactory.createObstLog();
+    }
+
+    public LogLevelThree createLogLevelThree() {
+        Debug.LogWarning("estoy en factory main");
+        return (LogLevelThree)logLvlThreeFactory.createObstLogLvlThree();
     }
 }
 

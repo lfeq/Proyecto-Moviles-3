@@ -5,4 +5,5 @@ using UnityEngine;
 public interface InterfaceLevel 
 {
     public void showHalfText();
+    public void showTimeofLvlText();
 }
