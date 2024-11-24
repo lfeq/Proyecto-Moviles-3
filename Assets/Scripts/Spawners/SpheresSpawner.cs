@@ -17,9 +17,6 @@ public class SpheresSpawner : MonoBehaviour
         StartCoroutine(createSpheres());
     }
     private IEnumerator createSpheres() {
-        //if (startPositions.Count != targetPositions.Count) {
-        //    return;
-        //}
         yield return new WaitForSeconds(2f);
         for (int i = 0; i < startPositions.Count; i++) {
             Sphere sphereInstance = obstaclesInterface.createSphere();
@@ -27,11 +24,9 @@ public class SpheresSpawner : MonoBehaviour
                 sphereInstance.transform.position = startPositions[i].position; 
                 TranslateObstacle translateScript = sphereInstance.GetComponent<TranslateObstacle>();
                 if (translateScript != null) {
-                    translateScript.start = createEmptyTransforms(startPositions[i].position, "StartPoint_" + i);
-                    translateScript.target = createEmptyTransforms(targetPositions[i].position, "TargetPoint_" + i);
+                    translateScript.start = createEmptyTransforms(startPositions[i].position, "start" + i);
+                    translateScript.target = createEmptyTransforms(targetPositions[i].position, "target" + i);
                     if (translateScript.start != null && translateScript.target != null) {
-                        //translateScript.start = translateScript.start;
-                        //translateScript.target = translateScript.target;
                         sphereList.Add(sphereInstance);
                     }
                 } 

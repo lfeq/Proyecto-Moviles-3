@@ -9,7 +9,6 @@ public class LogSpawner : MonoBehaviour
     [SerializeField] private List<Transform> targetPositions;
     private List<Log> logList = new List<Log>();
 
-
     private void Start() {
         obstaclesInterface = (ObstaclesInterface)FindObjectOfType<Factory>();
         StartCoroutine(createLogs());
@@ -22,8 +21,8 @@ public class LogSpawner : MonoBehaviour
                 logInstance.transform.position = startPositions[i].position;
                 TranslateObstacle translateScript = logInstance.GetComponent<TranslateObstacle>();
                 if (translateScript != null) {
-                    translateScript.start = createEmptyTransforms(startPositions[i].position, "StartPoint_" + i);
-                    translateScript.target = createEmptyTransforms(targetPositions[i].position, "TargetPoint_" + i);
+                    translateScript.start = createEmptyTransforms(startPositions[i].position, "start" + i);
+                    translateScript.target = createEmptyTransforms(targetPositions[i].position, "target" + i);
                     if (translateScript.start != null && translateScript.target != null) {
                         logList.Add(logInstance);
                     }
