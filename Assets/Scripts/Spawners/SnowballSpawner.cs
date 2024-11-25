@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 
 public class SnowballSpawner : MonoBehaviour 
 {
-    [SerializeField] private float spawnTimeInSeconds = 5f;
+    [SerializeField] private float spawnTimeInSeconds = 6.5f;
     [SerializeField] private float timeoutDelay = 25f;
     [SerializeField] private Snowball snowBall;
     [SerializeField] private float width = 5f, height = 5f, depth = 5f;
@@ -18,12 +18,19 @@ public class SnowballSpawner : MonoBehaviour
     public ObstaclesInterface obstaclesInterface;
 
     private void Awake() {
-        obstaclesInterface =(ObstaclesInterface) FindObjectOfType<Factory>();
-        snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
+       // obstaclesInterface =(ObstaclesInterface) FindObjectOfType<Factory>();
+        //snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
     }
     private void Start() {
         //obstaclesInterface = (ObstaclesInterface)FindObjectOfType<Factory>();
         //snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
+        StartCoroutine(initializeRef());
+        //StartCoroutine(spawning());
+    }
+    private IEnumerator initializeRef() {
+        yield return new WaitForSeconds(5f);
+        obstaclesInterface = (ObstaclesInterface)FindObjectOfType<Factory>();
+        snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
         StartCoroutine(spawning());
     }
     /// <summary>
