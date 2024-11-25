@@ -18,12 +18,13 @@ public class SnowballSpawner : MonoBehaviour
     public ObstaclesInterface obstaclesInterface;
 
     private void Awake() {
-        //factory = FindObjectOfType<Factory>();
         obstaclesInterface =(ObstaclesInterface) FindObjectOfType<Factory>();
         snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
     }
     private void Start() {
-            StartCoroutine(spawning());
+        //obstaclesInterface = (ObstaclesInterface)FindObjectOfType<Factory>();
+        //snowBallPool = new ObjectPool<Snowball>(createSnowball, onGetFromSnowBallPool, onReleaseToSnowBallPool, onDestroySnowBallObject, collectionCheck, defatultCapacity, maxSize);
+        StartCoroutine(spawning());
     }
     /// <summary>
     /// funtion to create objects from pool

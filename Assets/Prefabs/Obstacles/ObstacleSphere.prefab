@@ -116,7 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   start: {fileID: 0}
-  speed: 3.5
+  speed: 3.2
   tolerance: 0.1
 --- !u!54 &2895543946101977508
 Rigidbody:
