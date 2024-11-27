@@ -8,25 +8,30 @@ public class LogSpawner : MonoBehaviour
     [SerializeField] private List<Transform> startPositions;
     [SerializeField] private List<Transform> targetPositions;
     private List<Log> logList = new List<Log>();
+   
 
     private void Start() {
         obstaclesInterface = (ObstaclesInterface)FindObjectOfType<Factory>();
         StartCoroutine(createLogs());
     }
+    
     private IEnumerator createLogs() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(5f);  
         for (int i = 0; i < startPositions.Count; i++) {
-            Log logInstance = obstaclesInterface.createLog();
+            Debug.LogWarning("esta al principio");
+            Log logInstance = obstaclesInterface.createLog(); 
             if (logInstance != null) {
-                logInstance.transform.position = startPositions[i].position;
-                TranslateObstacle translateScript = logInstance.GetComponent<TranslateObstacle>();
-                if (translateScript != null) {
-                    translateScript.start = createEmptyTransforms(startPositions[i].position, "start" + i);
-                    translateScript.target = createEmptyTransforms(targetPositions[i].position, "target" + i);
-                    if (translateScript.start != null && translateScript.target != null) {
+                logInstance.transform.position = startPositions[i].position;  
+                FSMObstaclesLevelTwo obstacleLvlTwoFSMInstance = logInstance.GetComponent<FSMObstaclesLevelTwo>();  
+                if (obstacleLvlTwoFSMInstance != null) {
+                    Debug.LogWarning("esta aqui");
+                    obstacleLvlTwoFSMInstance.start = createEmptyTransforms(startPositions[i].position, "start" + i);
+                    obstacleLvlTwoFSMInstance.target = createEmptyTransforms(targetPositions[i].position, "target" + i);                                       
+                    obstacleLvlTwoFSMInstance.changeObstacleState(sphereStates.MovingToTarget);
+                    if (obstacleLvlTwoFSMInstance.start != null && obstacleLvlTwoFSMInstance.target != null) { 
                         logList.Add(logInstance);
                     }
-                }
+                } 
             }
         }
     }

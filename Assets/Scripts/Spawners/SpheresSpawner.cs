@@ -17,19 +17,22 @@ public class SpheresSpawner : MonoBehaviour
         StartCoroutine(createSpheres());
     }
     private IEnumerator createSpheres() {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         for (int i = 0; i < startPositions.Count; i++) {
+            Debug.LogWarning("esta al principio");
             Sphere sphereInstance = obstaclesInterface.createSphere();
             if (sphereInstance != null) {
-                sphereInstance.transform.position = startPositions[i].position; 
-                TranslateObstacle translateScript = sphereInstance.GetComponent<TranslateObstacle>();
-                if (translateScript != null) {
-                    translateScript.start = createEmptyTransforms(startPositions[i].position, "start" + i);
-                    translateScript.target = createEmptyTransforms(targetPositions[i].position, "target" + i);
-                    if (translateScript.start != null && translateScript.target != null) {
+                sphereInstance.transform.position = startPositions[i].position;
+                FSMObstaclesLevelTwo obstacleLvlTwoFSMInstance = sphereInstance.GetComponent<FSMObstaclesLevelTwo>();
+                if (obstacleLvlTwoFSMInstance != null) {
+                    Debug.LogWarning("esta aqui");
+                    obstacleLvlTwoFSMInstance.start = createEmptyTransforms(startPositions[i].position, "start" + i);
+                    obstacleLvlTwoFSMInstance.target = createEmptyTransforms(targetPositions[i].position, "target" + i);
+                    obstacleLvlTwoFSMInstance.changeObstacleState(sphereStates.MovingToTarget);
+                    if (obstacleLvlTwoFSMInstance.start != null && obstacleLvlTwoFSMInstance.target != null) {
                         sphereList.Add(sphereInstance);
                     }
-                } 
+                }
             }
         }
     }
